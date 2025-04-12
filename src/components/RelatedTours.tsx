@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Star } from 'lucide-react';
+import { MapPin, Star, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 // ข้อมูลตัวอย่าง
@@ -9,19 +9,21 @@ const allTours = [
     id: "1",
     name: "ทุ่งดอกกระเจียว",
     location: "อำเภอวังสามหมอ",
-    image: "https://source.unsplash.com/random/300x200/?wildflowers,1",
+    image: "/lovable-uploads/317bf558-3ea4-4d03-b015-0555c319ffac.png",
     rating: 4.8,
     reviews: 124,
-    price: "40 บาท"
+    price: "40 บาท",
+    views: 1240
   },
   {
     id: "2",
     name: "ผาแดง",
     location: "อำเภอวังสามหมอ",
-    image: "https://source.unsplash.com/random/300x200/?cliff,1",
+    image: "/lovable-uploads/8e5e6b84-6105-45f7-b97d-4dce2a65d731.png",
     rating: 4.5,
     reviews: 87,
-    price: "ฟรี"
+    price: "ฟรี",
+    views: 980
   },
   {
     id: "3",
@@ -30,7 +32,8 @@ const allTours = [
     image: "https://source.unsplash.com/random/300x200/?waterfall,1",
     rating: 4.3,
     reviews: 56,
-    price: "20 บาท"
+    price: "20 บาท",
+    views: 765
   },
   {
     id: "4",
@@ -39,7 +42,8 @@ const allTours = [
     image: "https://source.unsplash.com/random/300x200/?temple,1",
     rating: 4.7,
     reviews: 92,
-    price: "ฟรี"
+    price: "ฟรี",
+    views: 850
   },
   {
     id: "5",
@@ -48,7 +52,8 @@ const allTours = [
     image: "https://source.unsplash.com/random/300x200/?market,1",
     rating: 4.2,
     reviews: 45,
-    price: "ฟรี"
+    price: "ฟรี",
+    views: 620
   }
 ];
 
@@ -90,13 +95,17 @@ const RelatedTours = ({ id = "1" }: RelatedToursProps) => {
                   <MapPin size={14} className="mr-1" />
                   <span className="text-sm">{tour.location}</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <Star size={14} className="fill-yellow-400 text-yellow-400" />
                     <span className="ml-1 text-sm font-medium">{tour.rating}</span>
+                    <span className="mx-1 text-gray-400 text-sm">•</span>
+                    <span className="text-gray-600 text-sm">{tour.reviews} รีวิว</span>
                   </div>
-                  <span className="mx-1 text-gray-400 text-sm">•</span>
-                  <span className="text-gray-600 text-sm">{tour.reviews} รีวิว</span>
+                  <div className="flex items-center text-gray-600">
+                    <Eye size={14} className="mr-1" />
+                    <span className="text-sm font-medium text-wang-orange">{tour.views}</span>
+                  </div>
                 </div>
               </div>
             </Link>

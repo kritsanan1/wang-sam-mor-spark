@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Badge } from "@/components/ui/badge";
-import { Check, InfoCircle } from 'lucide-react';
+import { Check, Info } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const PromotionPackages = () => {
@@ -20,7 +20,8 @@ const PromotionPackages = () => {
         "รูปภาพ 3 รูป"
       ],
       popular: false,
-      color: "bg-gray-100"
+      color: "bg-gray-100",
+      views: 120
     },
     {
       id: "standard",
@@ -35,7 +36,8 @@ const PromotionPackages = () => {
         "โพสต์โปรโมทบนหน้า Social Media ของเรา"
       ],
       popular: true,
-      color: "bg-wang-orange/10"
+      color: "bg-wang-orange/10",
+      views: 458
     },
     {
       id: "premium",
@@ -52,7 +54,8 @@ const PromotionPackages = () => {
         "ที่ปรึกษาด้านการตลาดออนไลน์"
       ],
       popular: false,
-      color: "bg-blue-100"
+      color: "bg-blue-100",
+      views: 832
     }
   ];
 
@@ -69,10 +72,10 @@ const PromotionPackages = () => {
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-wang-orange to-orange-500 py-16 text-white">
           <div className="wang-container">
-            <h1 className="text-3xl md:text-4xl font-bold text-center mb-6">
+            <h1 className="text-3xl md:text-4xl font-bold text-center mb-6 text-white">
               โปรโมทธุรกิจของคุณกับ Tour Der Wang
             </h1>
-            <p className="text-lg text-center max-w-3xl mx-auto">
+            <p className="text-lg text-center max-w-3xl mx-auto mb-12">
               เพิ่มการมองเห็นธุรกิจของคุณให้กับนักท่องเที่ยวที่มาเยือนวังสามหมอ
               ด้วยแพ็คเกจโฆษณาที่ตอบโจทย์ทุกความต้องการ
             </p>
@@ -106,6 +109,14 @@ const PromotionPackages = () => {
                       <span className="text-3xl font-bold">฿{pkg.price}</span>
                       <span className="text-gray-500">/ {pkg.duration}</span>
                     </div>
+                    
+                    {/* เพิ่มจำนวนผู้เข้าชม */}
+                    <div className="bg-white/80 rounded-lg p-2 mb-4 flex items-center justify-center gap-1">
+                      <span className="text-sm font-medium text-gray-700">ผู้ชมแพ็คเกจนี้</span>
+                      <span className="font-bold text-wang-orange">{pkg.views.toLocaleString()}</span>
+                      <span className="text-xs text-gray-500">ครั้ง/เดือน</span>
+                    </div>
+                    
                     <Button className={`w-full ${pkg.popular ? 'bg-wang-orange hover:bg-wang-orange/90' : ''}`}>
                       เลือกแพ็คเกจนี้
                     </Button>

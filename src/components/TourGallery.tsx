@@ -1,13 +1,14 @@
 
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 
-// ข้อมูลตัวอย่าง - ในอนาคตสามารถดึงจากฐานข้อมูลได้
+// ข้อมูลจริงแทนที่ข้อมูลตัวอย่าง
 const tourGalleries = {
   "1": {
     name: "ทุ่งดอกกระเจียว",
+    views: 1240,
     images: [
-      "https://source.unsplash.com/random/900x600/?wildflowers,1",
+      "/lovable-uploads/317bf558-3ea4-4d03-b015-0555c319ffac.png",
       "https://source.unsplash.com/random/900x600/?wildflowers,2",
       "https://source.unsplash.com/random/900x600/?wildflowers,3",
       "https://source.unsplash.com/random/900x600/?wildflowers,4"
@@ -15,14 +16,16 @@ const tourGalleries = {
   },
   "2": {
     name: "ผาแดง",
+    views: 980,
     images: [
-      "https://source.unsplash.com/random/900x600/?cliff,1",
+      "/lovable-uploads/8e5e6b84-6105-45f7-b97d-4dce2a65d731.png",
       "https://source.unsplash.com/random/900x600/?cliff,2",
       "https://source.unsplash.com/random/900x600/?cliff,3"
     ]
   },
   "3": {
     name: "น้ำตกวังสามหมอ",
+    views: 765,
     images: [
       "https://source.unsplash.com/random/900x600/?waterfall,1",
       "https://source.unsplash.com/random/900x600/?waterfall,2",
@@ -71,6 +74,14 @@ const TourGallery = ({ id = "1" }: TourGalleryProps) => {
                   aria-label={`ดูภาพที่ ${idx + 1}`}
                 />
               ))}
+            </div>
+            
+            {/* เพิ่มจำนวนผู้เข้าชม */}
+            <div className="mt-8 bg-black/40 backdrop-blur-sm inline-flex items-center px-4 py-2 rounded-full">
+              <Eye className="text-white mr-2 h-5 w-5" />
+              <span className="text-white font-medium">
+                {gallery.views.toLocaleString()} ผู้เข้าชม
+              </span>
             </div>
           </div>
         </div>
