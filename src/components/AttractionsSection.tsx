@@ -1,20 +1,24 @@
 
 import React from 'react';
 import { MapPin, Leaf, Droplets } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const AttractionsSection = () => {
   const attractions = [
     {
+      id: "1",
       title: "ทุ่งดอกกระเจียวบานสะพรั่ง",
       description: "มหัศจรรย์แห่งสีสันบนพื้นที่กว้าง ช่วงเดือนกรกฎาคม-สิงหาคม",
       icon: <Leaf className="feature-icon" />
     },
     {
+      id: "2",
       title: "ผาแดงงามสง่า",
       description: "จุดชมวิวสุดตระการตา มองเห็นธรรมชาติโดยรอบ",
       icon: <MapPin className="feature-icon" />
     },
     {
+      id: "3",
       title: "แหล่งน้ำศักดิ์สิทธิ์",
       description: "ตำนานและความเชื่อที่ยังคงอยู่คู่กับชุมชนมายาวนาน",
       icon: <Droplets className="feature-icon" />
@@ -31,9 +35,10 @@ const AttractionsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {attractions.map((item, index) => (
-            <div 
+            <Link 
+              to={`/tour/${item.id}`}
               key={index} 
-              className="feature-card flex flex-col items-center text-center animate-scale-in"
+              className="feature-card flex flex-col items-center text-center animate-scale-in hover:scale-105 transition-transform duration-300"
               style={{animationDelay: `${index * 0.1}s`}}
             >
               <div className="mb-4">
@@ -51,14 +56,14 @@ const AttractionsSection = () => {
                 className="w-full h-48 object-cover rounded-lg mt-4"
                 loading="lazy"
               />
-            </div>
+            </Link>
           ))}
         </div>
 
         <div className="mt-12 text-center">
-          <a href="#" className="wang-button">
+          <Link to="/tour/1" className="wang-button">
             สำรวจธรรมชาติวังสามหมอ
-          </a>
+          </Link>
         </div>
       </div>
     </section>
