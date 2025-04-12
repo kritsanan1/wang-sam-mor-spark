@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { MapPin, Calendar, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const CallToAction = () => {
   return (
@@ -41,13 +42,13 @@ const CallToAction = () => {
         </div>
 
         <div className="text-center">
-          <a 
-            href="#" 
+          <Link 
+            to="/promotion-packages" 
             className="px-8 py-3 bg-white text-wang-orange font-semibold rounded-md 
             hover:bg-gray-100 transition-colors duration-300"
           >
             เริ่มต้นการเดินทางของคุณ
-          </a>
+          </Link>
         </div>
       </div>
     </section>

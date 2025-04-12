@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
@@ -9,14 +10,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
+            <Link to="/" className="flex items-center gap-2 mb-4">
               <img 
                 src="/lovable-uploads/317bf558-3ea4-4d03-b015-0555c319ffac.png" 
                 alt="Tour Der Wang Logo" 
                 className="h-12 w-auto"
               />
               <span className="text-xl font-bold">TOUR DER WANG</span>
-            </div>
+            </Link>
             <p className="text-gray-300 mb-6">
               ส่งเสริมการท่องเที่ยวอำเภอวังสามหมอ จังหวัดอุดรธานี แหล่งรวมธรรมชาติ วัฒนธรรม และวิถีชีวิตอันเป็นเอกลักษณ์
             </p>
@@ -40,11 +41,12 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">เมนูหลัก</h3>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-wang-orange">หน้าแรก</a></li>
-              <li><a href="#attractions" className="text-gray-300 hover:text-wang-orange">แหล่งท่องเที่ยว</a></li>
-              <li><a href="#food" className="text-gray-300 hover:text-wang-orange">อาหาร</a></li>
-              <li><a href="#culture" className="text-gray-300 hover:text-wang-orange">วัฒนธรรม</a></li>
-              <li><a href="#events" className="text-gray-300 hover:text-wang-orange">เทศกาล</a></li>
+              <li><Link to="/" className="text-gray-300 hover:text-wang-orange">หน้าแรก</Link></li>
+              <li><Link to="/#attractions" className="text-gray-300 hover:text-wang-orange">แหล่งท่องเที่ยว</Link></li>
+              <li><Link to="/#food" className="text-gray-300 hover:text-wang-orange">อาหาร</Link></li>
+              <li><Link to="/#culture" className="text-gray-300 hover:text-wang-orange">วัฒนธรรม</Link></li>
+              <li><Link to="/#events" className="text-gray-300 hover:text-wang-orange">เทศกาล</Link></li>
+              <li><Link to="/promotion-packages" className="text-gray-300 hover:text-wang-orange">แพ็คเกจโฆษณา</Link></li>
             </ul>
           </div>
 

@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -13,7 +14,7 @@ const Navbar = () => {
   return (
     <header className="w-full bg-white/90 backdrop-blur-sm fixed top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <a href="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <img 
             src="/lovable-uploads/317bf558-3ea4-4d03-b015-0555c319ffac.png" 
             alt="Tour Der Wang Logo" 
@@ -22,7 +23,7 @@ const Navbar = () => {
           <span className="text-xl font-bold text-wang-darkGray hidden md:block">
             TOUR DER WANG
           </span>
-        </a>
+        </Link>
 
         {/* Mobile menu button */}
         <button 
@@ -33,22 +34,25 @@ const Navbar = () => {
         </button>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-8">
-          <a href="#attractions" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
+        <nav className="hidden md:flex items-center gap-6">
+          <Link to="/#attractions" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
             แหล่งท่องเที่ยว
-          </a>
-          <a href="#food" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
+          </Link>
+          <Link to="/#food" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
             อาหาร
-          </a>
-          <a href="#culture" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
+          </Link>
+          <Link to="/#culture" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
             วัฒนธรรม
-          </a>
-          <a href="#events" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
+          </Link>
+          <Link to="/#events" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
             เทศกาล
-          </a>
-          <a href="#contact" className="wang-button">
+          </Link>
+          <Link to="/promotion-packages" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
+            แพ็คเกจโฆษณา
+          </Link>
+          <Link to="/#contact" className="wang-button">
             วางแผนการเดินทาง
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile Navigation */}
@@ -56,41 +60,48 @@ const Navbar = () => {
           "fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 transition-all duration-300 md:hidden",
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         )}>
-          <a 
-            href="#attractions" 
+          <Link 
+            to="/#attractions" 
             className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
             onClick={toggleMenu}
           >
             แหล่งท่องเที่ยว
-          </a>
-          <a 
-            href="#food" 
+          </Link>
+          <Link 
+            to="/#food" 
             className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
             onClick={toggleMenu}
           >
             อาหาร
-          </a>
-          <a 
-            href="#culture" 
+          </Link>
+          <Link 
+            to="/#culture" 
             className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
             onClick={toggleMenu}
           >
             วัฒนธรรม
-          </a>
-          <a 
-            href="#events" 
+          </Link>
+          <Link 
+            to="/#events" 
             className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
             onClick={toggleMenu}
           >
             เทศกาล
-          </a>
-          <a 
-            href="#contact" 
+          </Link>
+          <Link 
+            to="/promotion-packages" 
+            className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
+            onClick={toggleMenu}
+          >
+            แพ็คเกจโฆษณา
+          </Link>
+          <Link 
+            to="/#contact" 
             className="wang-button mt-4" 
             onClick={toggleMenu}
           >
             วางแผนการเดินทาง
-          </a>
+          </Link>
         </div>
       </div>
     </header>
