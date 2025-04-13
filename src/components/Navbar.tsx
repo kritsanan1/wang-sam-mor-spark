@@ -1,8 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, User, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -21,33 +22,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/hooks/use-toast";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState<{ username?: string; role?: string; isAuthenticated?: boolean } | null>(null);
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  // Check if user is logged in on component mount
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    setUser(null);
-    toast({
-      title: "ออกจากระบบสำเร็จ",
-      description: "คุณได้ออกจากระบบเรียบร้อยแล้ว",
-    });
-    navigate('/');
   };
 
   return (
@@ -161,7 +143,7 @@ const Navbar = () => {
                   <Link to="/forum">เว็บบอร์ด</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout} className="text-red-600 focus:text-red-600 cursor-pointer">
+                <DropdownMenuItem onClick={logout} className="text-red-600 focus:text-red-600 cursor-pointer">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>ออกจากระบบ</span>
                 </DropdownMenuItem>
@@ -235,7 +217,7 @@ const Navbar = () => {
               )}
               <button 
                 onClick={() => {
-                  handleLogout();
+                  logout();
                   toggleMenu();
                 }} 
                 className="text-xl font-medium text-red-600 mt-4"

@@ -1,11 +1,12 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from '@/contexts/AuthContext';
 
 // Mock post details
 const mockPost = {
@@ -41,23 +42,14 @@ const mockPost = {
 const ForumPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [newComment, setNewComment] = useState('');
-  
-  // Check login status
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    setIsLoggedIn(!!user.isAuthenticated);
-  }, []);
-  
-  // In a real app, fetch post data based on id
-  // For this example, we'll just use the mock data
+  const { isAuthenticated } = useAuth();
   
   // Handle new comment submission
   const handleNewComment = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
       toast({
         variant: "destructive",
         title: "กรุณาเข้าสู่ระบบ",
@@ -115,7 +107,7 @@ const ForumPost = () => {
           <div className="mb-8">
             <h2 className="text-xl font-bold mb-4">ความคิดเห็น ({mockPost.comments.length})</h2>
             
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <form onSubmit={handleNewComment} className="mb-8">
                 <div className="mb-4">
                   <Textarea 

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -20,6 +20,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 
 // Mock forum data
 const mockCategories = [
@@ -63,22 +64,16 @@ const mockPosts = [
 
 const Forum = () => {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(1);
-  
-  // Check login status
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    setIsLoggedIn(!!user.isAuthenticated);
-  }, []);
+  const { isAuthenticated } = useAuth();
   
   // Handle new post submission
   const handleNewPost = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
       toast({
         variant: "destructive",
         title: "กรุณาเข้าสู่ระบบ",
@@ -123,7 +118,7 @@ const Forum = () => {
             <p className="text-gray-600">แลกเปลี่ยนข้อมูล ถาม-ตอบ และแบ่งปันประสบการณ์เกี่ยวกับวังสามหมอ</p>
           </div>
           
-          {isLoggedIn ? (
+          {isAuthenticated ? (
             <Card className="mb-8">
               <CardHeader>
                 <CardTitle>สร้างโพสต์ใหม่</CardTitle>

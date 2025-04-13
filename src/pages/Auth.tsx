@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { 
@@ -12,13 +12,7 @@ import {
   CardTitle 
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { toast } from "@/hooks/use-toast";
-
-// Mock authentication - in a real application, this would connect to a backend
-const mockUsers = [
-  { username: 'admin', password: 'admin123', role: 'admin' },
-  { username: 'user', password: 'user123', role: 'member' }
-];
+import { useAuth } from "@/contexts/AuthContext";
 
 const Auth = () => {
   const [username, setUsername] = useState('');
@@ -26,35 +20,18 @@ const Auth = () => {
   const [registerUsername, setRegisterUsername] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState('');
-  const navigate = useNavigate();
+  
+  const { login, register, isAuthenticated } = useAuth();
+
+  // Redirect if already logged in
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   // Login handler
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const user = mockUsers.find(u => u.username === username && u.password === password);
-    
-    if (user) {
-      // In a real app, you'd store the token in localStorage or use a auth context
-      localStorage.setItem('user', JSON.stringify({
-        username: user.username,
-        role: user.role,
-        isAuthenticated: true
-      }));
-      
-      toast({
-        title: "เข้าสู่ระบบสำเร็จ",
-        description: `ยินดีต้อนรับ ${user.username}`,
-      });
-      
-      navigate('/');
-    } else {
-      toast({
-        variant: "destructive",
-        title: "เข้าสู่ระบบล้มเหลว",
-        description: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
-      });
-    }
+    login(username, password);
   };
 
   // Register handler
@@ -62,19 +39,10 @@ const Auth = () => {
     e.preventDefault();
     
     if (registerPassword !== registerConfirmPassword) {
-      toast({
-        variant: "destructive",
-        title: "ลงทะเบียนล้มเหลว",
-        description: "รหัสผ่านไม่ตรงกัน กรุณาตรวจสอบอีกครั้ง",
-      });
       return;
     }
     
-    // In a real app, you would send this to your backend
-    toast({
-      title: "ลงทะเบียนสำเร็จ",
-      description: "บัญชีของคุณถูกสร้างแล้ว กรุณาเข้าสู่ระบบ",
-    });
+    register(registerUsername, registerPassword);
     
     // Clear form
     setRegisterUsername('');
