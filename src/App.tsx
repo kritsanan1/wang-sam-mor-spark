@@ -9,6 +9,10 @@ import TourDetail from "./pages/TourDetail";
 import PromotionPackages from "./pages/PromotionPackages";
 import BlogPage from "./pages/BlogPage";
 import BlogPostDetail from "./pages/BlogPostDetail";
+import Auth from "./pages/Auth";
+import AdminDashboard from "./pages/AdminDashboard";
+import Forum from "./pages/Forum";
+import ForumPost from "./pages/ForumPost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +29,10 @@ const App = () => (
           <Route path="/promotion-packages" element={<PromotionPackages />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<BlogPostDetail />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/forum/post/:id" element={<ForumPost />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
