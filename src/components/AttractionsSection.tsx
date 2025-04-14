@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { MapPin, Leaf, Droplets } from 'lucide-react';
+import { MapPin, Leaf, Droplets, Map } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AttractionsSection = () => {
@@ -60,9 +60,14 @@ const AttractionsSection = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-12 text-center flex flex-col md:flex-row items-center justify-center gap-4">
           <Link to="/tour/1" className="wang-button">
             สำรวจธรรมชาติวังสามหมอ
+          </Link>
+          
+          <Link to="/travel-map" className="wang-button bg-white text-wang-orange border border-wang-orange hover:bg-wang-orange/10 flex items-center gap-2">
+            <Map className="h-5 w-5" />
+            แผนที่และการเดินทาง
           </Link>
         </div>
       </div>
