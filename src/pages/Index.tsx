@@ -9,12 +9,14 @@ import EventsSection from '@/components/EventsSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
+import ExampleWelcomeSection from '@/components/ExampleWelcomeSection';
 
 const Index = () => {
   return (
     <div className="min-h-screen relative">
       <Navbar />
       <HeroSection />
+      <ExampleWelcomeSection />
       <AttractionsSection />
       <FoodSection />
       <CultureSection />
