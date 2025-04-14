@@ -3,93 +3,117 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
+import { NavLink } from '../Navbar';
+import { ChevronRight, User, LogOut } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 interface MobileMenuProps {
   isMenuOpen: boolean;
   toggleMenu: () => void;
+  links: NavLink[];
+  user?: {
+    name: string;
+    avatar: string;
+    role: string;
+  };
 }
 
-const MobileMenu: React.FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu }) => {
-  const { user, logout } = useAuth();
+const MobileMenu: React.FC<MobileMenuProps> = ({ isMenuOpen, toggleMenu, links, user }) => {
+  const { logout } = useAuth();
 
   return (
-    <div className={cn(
-      "fixed inset-0 bg-white z-40 flex flex-col items-center justify-center gap-8 transition-all duration-300 md:hidden",
-      isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-    )}>
-      <Link 
-        to="/#attractions" 
-        className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
-        onClick={toggleMenu}
-      >
-        แหล่งท่องเที่ยว
-      </Link>
-      <Link 
-        to="/#food" 
-        className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
-        onClick={toggleMenu}
-      >
-        อาหาร
-      </Link>
-      <Link 
-        to="/#culture" 
-        className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
-        onClick={toggleMenu}
-      >
-        วัฒนธรรม
-      </Link>
-      <Link 
-        to="/#events" 
-        className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
-        onClick={toggleMenu}
-      >
-        เทศกาล
-      </Link>
-      <Link 
-        to="/forum" 
-        className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
-        onClick={toggleMenu}
-      >
-        เว็บบอร์ด
-      </Link>
-      <Link 
-        to="/promotion-packages" 
-        className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
-        onClick={toggleMenu}
-      >
-        แพ็คเกจโฆษณา
-      </Link>
-      
-      {user && user.isAuthenticated ? (
-        <>
-          {user.role === 'admin' && (
+    <div 
+      id="mobile-menu"
+      className={cn(
+        "fixed inset-x-0 top-[4.5rem] bottom-0 bg-white z-40 flex flex-col overflow-y-auto transition-all duration-300 md:hidden",
+        isMenuOpen ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+      )}
+      aria-hidden={!isMenuOpen}
+    >
+      <nav className="flex flex-col p-6 space-y-4">
+        {links.map((link, index) => (
+          <div key={`${link.text}-${index}`} className="border-b border-gray-100 pb-4">
             <Link 
-              to="/admin" 
-              className="text-xl font-medium text-wang-darkGray hover:text-wang-orange"
+              to={link.href} 
+              className="text-lg font-medium text-wang-darkGray hover:text-wang-orange flex items-center justify-between"
               onClick={toggleMenu}
             >
-              แผงควบคุม
+              {link.text}
+              {link.subLinks && <ChevronRight size={18} />}
             </Link>
-          )}
-          <button 
-            onClick={() => {
-              logout();
-              toggleMenu();
-            }} 
-            className="text-xl font-medium text-red-600 mt-4"
+            
+            {link.subLinks && (
+              <div className="pl-4 mt-2 space-y-2">
+                {link.subLinks.map((subLink, subIndex) => (
+                  <Link 
+                    key={`${subLink.text}-${subIndex}`}
+                    to={subLink.href} 
+                    className="text-base text-wang-darkGray/80 hover:text-wang-orange block py-1"
+                    onClick={toggleMenu}
+                  >
+                    {subLink.text}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
+      
+      <div className="mt-auto p-6 border-t border-gray-100">
+        {user ? (
+          <div className="flex flex-col space-y-4">
+            <div className="flex items-center gap-3">
+              {user.avatar ? (
+                <img 
+                  src={user.avatar} 
+                  alt={user.name} 
+                  className="h-10 w-10 rounded-full" 
+                />
+              ) : (
+                <div className="h-10 w-10 bg-wang-orange rounded-full grid place-items-center text-white">
+                  {user.name.charAt(0)}
+                </div>
+              )}
+              <div>
+                <p className="font-medium">{user.name}</p>
+                <p className="text-sm text-gray-500">{user.role === 'admin' ? 'ผู้ดูแลระบบ' : 'สมาชิก'}</p>
+              </div>
+            </div>
+            
+            {user.role === 'admin' && (
+              <Link 
+                to="/admin" 
+                className="text-gray-600 hover:text-wang-orange flex items-center space-x-2"
+                onClick={toggleMenu}
+              >
+                <span>แผงควบคุม</span>
+              </Link>
+            )}
+            
+            <Button 
+              variant="outline" 
+              className="w-full justify-start text-red-600 hover:text-red-700 border-red-200 hover:border-red-300"
+              onClick={() => {
+                logout();
+                toggleMenu();
+              }}
+            >
+              <LogOut className="mr-2 h-4 w-4" /> 
+              <span>ออกจากระบบ</span>
+            </Button>
+          </div>
+        ) : (
+          <Link 
+            to="/auth" 
+            className="wang-button w-full flex justify-center items-center" 
+            onClick={toggleMenu}
           >
-            ออกจากระบบ
-          </button>
-        </>
-      ) : (
-        <Link 
-          to="/auth" 
-          className="wang-button mt-4" 
-          onClick={toggleMenu}
-        >
-          เข้าสู่ระบบ
-        </Link>
-      )}
+            <User className="mr-2 h-4 w-4" />
+            เข้าสู่ระบบ
+          </Link>
+        )}
+      </div>
     </div>
   );
 };

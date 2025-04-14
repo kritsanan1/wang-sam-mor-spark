@@ -1,6 +1,7 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { NavLink } from '../Navbar';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -19,77 +20,78 @@ import {
 import { Button } from "@/components/ui/button";
 import { LogOut, User } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { cn } from '@/lib/utils';
 
-const DesktopMenu: React.FC = () => {
-  const { user, logout } = useAuth();
+interface DesktopMenuProps {
+  links: NavLink[];
+  user?: {
+    name: string;
+    avatar: string;
+    role: string;
+  };
+}
+
+const DesktopMenu: React.FC<DesktopMenuProps> = ({ links, user }) => {
+  const { logout } = useAuth();
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   return (
     <nav className="hidden md:flex items-center gap-6">
       <NavigationMenu>
         <NavigationMenuList>
-          <NavigationMenuItem>
-            <Link to="/#attractions" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
-              แหล่งท่องเที่ยว
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger>อาหาร</NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <div className="w-[400px] p-4">
-                <ul className="grid gap-3 p-4">
-                  <li>
-                    <Link
-                      to="/#food"
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      <div className="text-sm font-medium leading-none">อาหารท้องถิ่น</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        อาหารพื้นเมืองที่มีชื่อเสียงของวังสามหมอ
-                      </p>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/#food"
-                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    >
-                      <div className="text-sm font-medium leading-none">ร้านแนะนำ</div>
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        ร้านอาหารที่นักท่องเที่ยวนิยมไปเยี่ยมชม
-                      </p>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/#culture" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
-              วัฒนธรรม
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/#events" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
-              เทศกาล
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/forum" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
-              เว็บบอร์ด
-            </Link>
-          </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Link to="/promotion-packages" className="text-wang-darkGray hover:text-wang-orange font-medium transition-colors">
-              แพ็คเกจโฆษณา
-            </Link>
-          </NavigationMenuItem>
+          {links.map((link, index) => (
+            <NavigationMenuItem key={`${link.text}-${index}`}>
+              {link.subLinks ? (
+                <>
+                  <NavigationMenuTrigger className={cn(
+                    "text-base font-medium bg-transparent hover:bg-transparent hover:text-wang-orange focus:bg-transparent",
+                    isHomePage ? "text-white" : "text-wang-darkGray"
+                  )}>
+                    {link.text}
+                  </NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <div className="w-[200px] p-2">
+                      <ul className="grid gap-1">
+                        {link.subLinks.map((subLink, subIndex) => (
+                          <li key={`${subLink.text}-${subIndex}`}>
+                            <Link
+                              to={subLink.href}
+                              className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            >
+                              <div className="text-sm font-medium leading-none">{subLink.text}</div>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </NavigationMenuContent>
+                </>
+              ) : (
+                <Link 
+                  to={link.href} 
+                  className={cn(
+                    "text-base font-medium transition-colors hover:text-wang-orange",
+                    isHomePage ? "text-white" : "text-wang-darkGray"
+                  )}
+                >
+                  {link.text}
+                </Link>
+              )}
+            </NavigationMenuItem>
+          ))}
         </NavigationMenuList>
       </NavigationMenu>
 
-      {user && user.isAuthenticated ? (
-        <UserDropdown user={user} logout={logout} />
+      {user ? (
+        <UserDropdown user={user} logout={logout} isHomePage={isHomePage} />
       ) : (
-        <Link to="/auth" className="wang-button">
+        <Link to="/auth" className={cn(
+          "px-6 py-2 font-semibold rounded-md transition-colors",
+          isHomePage 
+            ? "bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm" 
+            : "bg-wang-orange text-white hover:bg-wang-orange/90"
+        )}>
           เข้าสู่ระบบ
         </Link>
       )}
@@ -99,24 +101,41 @@ const DesktopMenu: React.FC = () => {
 
 interface UserDropdownProps {
   user: {
-    username: string;
+    name: string;
+    avatar: string;
     role: string;
   };
   logout: () => void;
+  isHomePage: boolean;
 }
 
-const UserDropdown: React.FC<UserDropdownProps> = ({ user, logout }) => {
+const UserDropdown: React.FC<UserDropdownProps> = ({ user, logout, isHomePage }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-          <User className="h-5 w-5" />
+        <Button 
+          variant="ghost" 
+          className={cn(
+            "relative h-9 w-9 rounded-full p-0 hover:bg-wang-orange/10", 
+            isHomePage ? "hover:bg-white/10 text-white" : "text-wang-darkGray"
+          )}
+          aria-label="เมนูผู้ใช้"
+        >
+          {user.avatar ? (
+            <img 
+              src={user.avatar} 
+              alt={user.name} 
+              className="h-full w-full rounded-full object-cover" 
+            />
+          ) : (
+            <User className="h-5 w-5" />
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.username}</p>
+            <p className="text-sm font-medium leading-none">{user.name}</p>
             <p className="text-xs leading-none text-muted-foreground">
               {user.role === 'admin' ? 'ผู้ดูแลระบบ' : 'สมาชิก'}
             </p>

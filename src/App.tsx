@@ -10,6 +10,7 @@ import TourDetail from "./pages/TourDetail";
 import PromotionPackages from "./pages/PromotionPackages";
 import BlogPage from "./pages/BlogPage";
 import BlogPostDetail from "./pages/BlogPostDetail";
+import ArticleDetail from "./pages/ArticleDetail";
 import Auth from "./pages/Auth";
 import AdminDashboard from "./pages/AdminDashboard";
 import Forum from "./pages/Forum";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/promotion-packages" element={<PromotionPackages />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogPostDetail />} />
+            <Route path="/article/:slug" element={<ArticleDetail />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/forum" element={<Forum />} />
