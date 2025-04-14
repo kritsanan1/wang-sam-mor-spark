@@ -123,7 +123,7 @@ export default {
 			},
       fontFamily: {
         thai: ['Sarabun', 'sans-serif'],
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Open Sans', 'Inter', 'sans-serif'],
       }
 		}
 	},
