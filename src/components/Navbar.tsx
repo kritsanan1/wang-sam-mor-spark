@@ -21,6 +21,13 @@ const Navbar: React.FC = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
 
+  // Transform user data format for menu components
+  const menuUserData = user ? {
+    name: user.username,
+    avatar: '', // No avatar in current auth context
+    role: user.role
+  } : undefined;
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -78,7 +85,7 @@ const Navbar: React.FC = () => {
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <NavbarLogo />
           
-          <DesktopMenu links={navLinks} user={user} />
+          <DesktopMenu links={navLinks} user={menuUserData} />
           
           <MobileMenuButton isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         </div>
@@ -88,7 +95,7 @@ const Navbar: React.FC = () => {
         isMenuOpen={isMenuOpen} 
         toggleMenu={toggleMenu} 
         links={navLinks}
-        user={user}
+        user={menuUserData}
       />
     </>
   );
