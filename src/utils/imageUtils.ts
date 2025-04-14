@@ -21,7 +21,14 @@ export const validateWelcomeImage = (imageData: Partial<WelcomeImage>): {
       };
     }
     
-    const result = welcomeImageSchema.parse(imageData);
+    // Create a complete WelcomeImage object from the partial data
+    const completeImageData: WelcomeImage = {
+      id: imageData.id,
+      image: imageData.image,
+      description: imageData.description
+    };
+    
+    const result = welcomeImageSchema.parse(completeImageData);
     return { valid: true, data: result };
   } catch (error) {
     console.error("Image validation failed:", error);
