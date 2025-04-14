@@ -22,11 +22,11 @@ export const validateWelcomeImage = (imageData: Partial<WelcomeImage>): {
     }
     
     // Create a complete WelcomeImage object from the partial data
-    const completeImageData: WelcomeImage = {
+    const completeImageData = {
       id: imageData.id,
       image: imageData.image,
       description: imageData.description
-    };
+    } as WelcomeImage;
     
     const result = welcomeImageSchema.parse(completeImageData);
     return { valid: true, data: result };

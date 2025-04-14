@@ -17,6 +17,7 @@ import Forum from "./pages/Forum";
 import ForumPost from "./pages/ForumPost";
 import NotFound from "./pages/NotFound";
 import TravelMap from "./pages/TravelMap";
+import Food from "./pages/Food";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
             <Route path="/forum" element={<Forum />} />
             <Route path="/forum/post/:id" element={<ForumPost />} />
             <Route path="/travel-map" element={<TravelMap />} />
+            <Route path="/food" element={<Food />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
