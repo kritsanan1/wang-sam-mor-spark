@@ -13,6 +13,14 @@ export const validateWelcomeImage = (imageData: Partial<WelcomeImage>): {
   error?: Error;
 } => {
   try {
+    // Ensure all required fields are present before validation
+    if (!imageData.id || !imageData.image || !imageData.description) {
+      return { 
+        valid: false, 
+        error: new Error("Missing required fields") 
+      };
+    }
+    
     const result = welcomeImageSchema.parse(imageData);
     return { valid: true, data: result };
   } catch (error) {
