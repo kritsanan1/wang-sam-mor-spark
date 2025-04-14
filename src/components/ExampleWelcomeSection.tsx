@@ -1,6 +1,4 @@
-
 import React, { useState } from 'react';
-import { Button } from "@/components/ui/button";
 import WelcomeImage from './WelcomeImage';
 import { v4 as uuidv4 } from 'uuid';
 import { processWelcomeImage } from '@/utils/imageUtils';
@@ -8,13 +6,20 @@ import { WelcomeImage as WelcomeImageType } from '@/types/imageTypes';
 import { toast } from 'sonner';
 
 const ExampleWelcomeSection: React.FC = () => {
+  const generateUUID = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, 
+          v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  };
+
   const [welcomeImage, setWelcomeImage] = useState<WelcomeImageType>({
-    id: uuidv4(),
+    id: uuidv4() || generateUUID(),
     image: "/lovable-uploads/ee2c3e79-9937-4c16-99b4-117d6f50edd1.png",
     description: "สัมผัสประสบการณ์ท่องเที่ยวแบบใกล้ชิดธรรมชาติที่วังสามหมอ แหล่งท่องเที่ยวที่ซ่อนตัวแต่เต็มไปด้วยเสน่ห์"
   });
   
-  // Example function to handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -32,7 +37,6 @@ const ExampleWelcomeSection: React.FC = () => {
     }
   };
   
-  // Example function to update description
   const handleDescriptionUpdate = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newDesc = e.target.value;
     
@@ -58,7 +62,6 @@ const ExampleWelcomeSection: React.FC = () => {
           onError={(error) => toast.error(`เกิดข้อผิดพลาด: ${error.message}`)}
         />
         
-        {/* Admin Controls - In a real app these would be in an admin panel */}
         <div className="mt-8 p-4 border border-dashed border-wang-orange rounded-lg bg-wang-lightGray">
           <h3 className="text-xl font-bold mb-4">ตัวควบคุมผู้ดูแลระบบ</h3>
           
