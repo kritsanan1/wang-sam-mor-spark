@@ -1,18 +1,12 @@
-
 import React from 'react';
 import { Search } from 'lucide-react';
-
 const HeroSection = () => {
-  return (
-    <section className="relative h-screen w-full flex items-center justify-center pt-16">
+  return <section className="relative h-screen w-full flex items-center justify-center pt-16">
       {/* Background image with overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center z-0" 
-        style={{ 
-          backgroundImage: `url('/lovable-uploads/8e5e6b84-6105-45f7-b97d-4dce2a65d731.png')`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40 z-0"></div>
+      <div className="absolute inset-0 bg-cover bg-center z-0" style={{
+      backgroundImage: `url('/lovable-uploads/8e5e6b84-6105-45f7-b97d-4dce2a65d731.png')`
+    }}>
+        <div className="absolute inset-0 z-0 bg-orange-300"></div>
       </div>
       
       {/* Content */}
@@ -29,11 +23,7 @@ const HeroSection = () => {
         
         {/* Search Box */}
         <div className="max-w-md mx-auto relative">
-          <input 
-            type="text"
-            placeholder="ค้นหาสถานที่ท่องเที่ยว, ร้านอาหาร, ที่พัก..."
-            className="w-full py-3 px-6 pr-12 rounded-full shadow-md text-wang-darkGray outline-none"
-          />
+          <input type="text" placeholder="ค้นหาสถานที่ท่องเที่ยว, ร้านอาหาร, ที่พัก..." className="w-full py-3 px-6 pr-12 rounded-full shadow-md text-wang-darkGray outline-none" />
           <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-wang-orange">
             <Search size={20} />
           </button>
@@ -45,8 +35,6 @@ const HeroSection = () => {
           </a>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
