@@ -1,12 +1,9 @@
-
 import React from 'react';
 import { MapPin, Calendar, Phone, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
 const CallToAction = () => {
-  return (
-    <section id="contact" className="section-spacing bg-wang-orange text-white relative">
-      <div className="absolute inset-0 bg-gradient-to-r from-wang-orange to-orange-500 opacity-90"></div>
+  return <section id="contact" className="section-spacing bg-wang-orange text-white relative">
+      <div className="absolute inset-0 bg-gradient-to-r from-wang-orange to-orange-500 opacity-90 bg-[#00070e]"></div>
       <div className="wang-container relative z-10">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center text-white">
           วางแผนการเดินทาง... สู่ วังสามหมอ วันนี้!
@@ -57,11 +54,8 @@ const CallToAction = () => {
                 <span className="block text-sm">เข้าชมเว็บไซต์เราต่อเดือน</span>
               </div>
             </div>
-            <Link 
-              to="/promotion-packages" 
-              className="px-6 py-3 bg-white text-wang-orange font-semibold rounded-md 
-              hover:bg-gray-100 transition-colors duration-300 flex items-center"
-            >
+            <Link to="/promotion-packages" className="px-6 py-3 bg-white text-wang-orange font-semibold rounded-md 
+              hover:bg-gray-100 transition-colors duration-300 flex items-center">
               <span>ดูแพ็คเกจโฆษณา</span>
               <span className="ml-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full animate-pulse">ใหม่</span>
             </Link>
@@ -73,17 +67,12 @@ const CallToAction = () => {
         </div>
 
         <div className="text-center">
-          <Link 
-            to="/promotion-packages" 
-            className="px-8 py-3 bg-white text-wang-orange font-semibold rounded-md 
-            hover:bg-gray-100 transition-colors duration-300"
-          >
+          <Link to="/promotion-packages" className="px-8 py-3 bg-white text-wang-orange font-semibold rounded-md 
+            hover:bg-gray-100 transition-colors duration-300">
             เริ่มต้นการเดินทางของคุณ
           </Link>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default CallToAction;
