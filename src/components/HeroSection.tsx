@@ -1,12 +1,14 @@
+
 import React from 'react';
 import { Search } from 'lucide-react';
+
 const HeroSection = () => {
   return <section className="relative h-screen w-full flex items-center justify-center pt-16">
       {/* Background image with overlay */}
       <div className="absolute inset-0 bg-cover bg-center z-0" style={{
-      backgroundImage: `url('/lovable-uploads/8e5e6b84-6105-45f7-b97d-4dce2a65d731.png')`
+      backgroundImage: `url('/lovable-uploads/33b9363f-ff94-4a0b-9189-48bb2ead3de0.png')`
     }}>
-        <div className="absolute inset-0 z-0 bg-orange-300"></div>
+        <div className="absolute inset-0 z-0 bg-black opacity-30"></div>
       </div>
       
       {/* Content */}
@@ -37,4 +39,5 @@ const HeroSection = () => {
       </div>
     </section>;
 };
+
 export default HeroSection;

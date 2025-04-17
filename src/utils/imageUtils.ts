@@ -45,17 +45,17 @@ export const validateWelcomeImage = (imageData: Partial<WelcomeImage>): {
  * @returns The processed image data or null if invalid
  */
 export const processWelcomeImage = (imageData: Partial<WelcomeImage>): WelcomeImage | null => {
-  const validationResult = validateWelcomeImage(imageData);
+  const validation = validateWelcomeImage(imageData);
   
-  if (!validationResult.valid) {
+  if (!validation.valid || !validation.data) {
     // Notify user
     toast.error("Image data is invalid. Please check and try again.");
     
     // In a real app, this would notify admin via API call or other mechanism
-    console.error("Admin notification: Image upload failed validation", validationResult.error);
+    console.error("Admin notification: Image upload failed validation", validation.error);
     
     return null;
   }
   
-  return validationResult.data!;
+  return validation.data;
 };
