@@ -1,14 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import { WelcomeImage as WelcomeImageType, welcomeImageSchema } from '@/types/imageTypes';
-
 interface WelcomeImageProps {
   image: string | File;
   description?: string;
   onError?: (error: Error) => void;
 }
-
 const WelcomeImage: React.FC<WelcomeImageProps> = ({
   image,
   description = "Experience the beauty of วังสามหมอ through our captivating imagery and discover the wonders waiting for you.",
@@ -17,7 +14,6 @@ const WelcomeImage: React.FC<WelcomeImageProps> = ({
   const [loading, setLoading] = useState(true);
   const [imageUrl, setImageUrl] = useState<string>("");
   const [error, setError] = useState<Error | null>(null);
-
   useEffect(() => {
     const validateAndProcessImage = async () => {
       try {
@@ -52,37 +48,24 @@ const WelcomeImage: React.FC<WelcomeImageProps> = ({
     };
     validateAndProcessImage();
   }, [image, description, onError]);
-
   if (error) {
     return <div className="w-full min-h-[300px] bg-wang-lightGray flex items-center justify-center rounded-lg">
         <p className="text-wang-darkGray text-lg">ไม่สามารถแสดงรูปภาพได้</p>
       </div>;
   }
-
-  return (
-    <div className="relative w-full overflow-hidden rounded-lg">
+  return <div className="relative w-full overflow-hidden rounded-lg">
       {/* Loading skeleton */}
-      {loading && (
-        <div className="absolute inset-0 bg-wang-lightGray animate-pulse flex items-center justify-center">
+      {loading && <div className="absolute inset-0 bg-wang-lightGray animate-pulse flex items-center justify-center">
           <div className="w-10 h-10 border-4 border-wang-orange border-t-transparent rounded-full animate-spin"></div>
-        </div>
-      )}
+        </div>}
       
       {/* Image container with animation */}
-      {!loading && imageUrl && (
-        <div className="aspect-w-16 aspect-h-9">
-          <img 
-            src={imageUrl} 
-            alt={description} 
-            className="w-full h-full object-cover rounded-lg transition-all duration-500 hover:scale-105"
-          />
+      {!loading && imageUrl && <div className="aspect-w-16 aspect-h-9">
+          
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
             <p className="text-white text-lg">{description}</p>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        </div>}
+    </div>;
 };
-
 export default WelcomeImage;
